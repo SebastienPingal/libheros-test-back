@@ -17,7 +17,7 @@ export class AuthService {
       throw new UnauthorizedException()
     }
 
-    const payload = { sub: user.id, username: user.email }
+    const payload = { sub: user.id, email: user.email }
 
     return {
       token: await this.jwtService.signAsync(payload),
@@ -33,7 +33,7 @@ export class AuthService {
     const doubleHashPassword = await bcrypt.hash(password, 10)
 
     const newUser = await this.usersService.createUser({ name, email, password: doubleHashPassword })
-    const payload = { sub: newUser.id, username: newUser.email }
+    const payload = { sub: newUser.id, email: newUser.email }
 
     return {
       token: await this.jwtService.signAsync(payload),
