@@ -1,2 +1,0 @@
-- Create and setup db
-- handle hashed password
