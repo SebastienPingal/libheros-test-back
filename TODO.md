@@ -1,0 +1,2 @@
+- hash password in front
+- generate token
