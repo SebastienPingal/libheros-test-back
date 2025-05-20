@@ -19,10 +19,7 @@ import { TodoListsModule } from './todo-lists/todo-lists.module';
     UsersModule,
     TodoListsModule,
   ],
-  controllers: [AppController, TodoListsController],
-  providers: [
-    AppService,
-    TodoListsService,
-  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule { }
