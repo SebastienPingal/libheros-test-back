@@ -30,8 +30,7 @@ export class AuthController {
   @Post('register')
   async register(@Body() registerDto: RegisterDto) {
     try {
-      const user = await this.usersService.createUser(registerDto)
-      return user
+      return this.authService.register(registerDto.name, registerDto.email, registerDto.password)
     } catch (error) {
       console.error('🔴 Error registering user:', error)
       if (error.name === 'PrismaClientValidationError') {

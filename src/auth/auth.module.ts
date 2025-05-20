@@ -11,7 +11,14 @@ import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
     UsersModule,
-    JwtModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get('JWT_SECRET'),
+        signOptions: { expiresIn: '1h' },
+      }),
+    }),
   ],
   controllers: [AuthController],
   providers: [
