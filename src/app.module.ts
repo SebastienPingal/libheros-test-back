@@ -3,12 +3,19 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { AuthModule } from './auth/auth.module'
 import { UsersModule } from './users/users.module'
-import { ConfigModule } from '@nestjs/config'
-import { AuthGuard } from './auth/auth.guard'
-import { APP_GUARD } from '@nestjs/core'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { JwtModule } from '@nestjs/jwt'
 
 @Module({
   imports: [
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get('JWT_SECRET'),
+        signOptions: { expiresIn: '1h' },
+      }),
+    }),
     AuthModule,
     UsersModule,
     ConfigModule.forRoot({
@@ -18,10 +25,6 @@ import { APP_GUARD } from '@nestjs/core'
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
   ],
 })
 export class AppModule { }

@@ -1,2 +1,2 @@
-- hash password in front
-- generate token
+- Create and setup db
+- handle hashed password
