@@ -41,6 +41,6 @@ export class AuthService {
   }
 
   async me(userId: string) {
-    return this.usersService.get({ id: userId })
+    return this.usersService.getComplete({ id: userId })
   }
 }

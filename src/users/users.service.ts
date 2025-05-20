@@ -14,6 +14,21 @@ export class UsersService {
     })
   }
 
+  async getComplete(
+    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
+  ): Promise<User | null> {
+    return this.prisma.user.findUnique({
+      where: userWhereUniqueInput,
+      include: {
+        todoLists: {
+          include: {
+            todos: true,
+          },
+        },
+      },
+    })
+  }
+
   async getAll(): Promise<User[]> {
     return this.prisma.user.findMany()
   }
