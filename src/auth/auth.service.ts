@@ -40,8 +40,7 @@ export class AuthService {
     }
   }
 
-  async me(token: string) {
-    const decoded = this.jwtService.verify(token)
-    return this.usersService.get({ id: decoded.sub })
+  async me(userId: string) {
+    return this.usersService.get({ id: userId })
   }
 }
