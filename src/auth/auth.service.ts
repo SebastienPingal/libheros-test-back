@@ -35,4 +35,9 @@ export class AuthService {
       token: await this.jwtService.signAsync(payload),
     }
   }
+
+  async me(token: string) {
+    const decoded = this.jwtService.verify(token)
+    return this.usersService.get({ id: decoded.sub })
+  }
 }

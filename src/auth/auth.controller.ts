@@ -39,4 +39,12 @@ export class AuthController {
       throw error
     }
   }
+
+  @Get('me')
+  async me(@Req() req: Request) {
+    const authHeader = req.headers['authorization']
+    if (!authHeader) throw new UnauthorizedException('No token provided')
+    const token = authHeader.split(' ')[1]
+    return this.authService.me(token)
+  }
 }
