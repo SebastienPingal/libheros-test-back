@@ -40,6 +40,9 @@ export class TodoListsService {
   async deleteTodoList(where: Prisma.todoListWhereUniqueInput): Promise<todoList> {
     return this.prisma.todoList.delete({
       where,
+      include: {
+        todos: true
+      }
     })
   }
 }
