@@ -7,5 +7,6 @@ import { PrismaModule } from '../prisma/prisma.module';
   imports: [PrismaModule],
   controllers: [TodoListsController],
   providers: [TodoListsService],
+  exports: [TodoListsService],
 })
 export class TodoListsModule { }

@@ -5,9 +5,10 @@ import { AuthModule } from './auth/auth.module'
 import { UsersModule } from './users/users.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
-import { TodoListsController } from './todo-lists/todo-lists.controller';
-import { TodoListsService } from './todo-lists/todo-lists.service';
 import { TodoListsModule } from './todo-lists/todo-lists.module';
+import { TodosService } from './todos/todos.service';
+import { TodosModule } from './todos/todos.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -18,8 +19,10 @@ import { TodoListsModule } from './todo-lists/todo-lists.module';
     AuthModule,
     UsersModule,
     TodoListsModule,
+    TodosModule,
+    PrismaModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, TodosService],
 })
 export class AppModule { }
