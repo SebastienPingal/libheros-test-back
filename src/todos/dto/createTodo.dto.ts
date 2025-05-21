@@ -1,4 +1,4 @@
-import { IsString, IsBoolean, IsOptional } from 'class-validator'
+import { IsString, IsBoolean, IsOptional, IsDate } from 'class-validator'
 
 export class CreateTodoDto {
   @IsString()
@@ -7,4 +7,9 @@ export class CreateTodoDto {
   @IsString()
   @IsOptional()
   description: string
+
+  @IsDate()
+  @IsOptional()
+  expirationDate: Date
 }
+
