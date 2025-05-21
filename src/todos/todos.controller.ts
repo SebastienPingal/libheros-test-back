@@ -24,12 +24,12 @@ export class TodosController {
   }
 
   @Get('todo-list/:id')
-  async getTodosByTodoListId(@CurrentUser() user: JwtPayload, @Param('id') id: string) {
+  async getTodosByTodoListId(@Param('id') id: string) {
     return this.todosService.getAll({ todoList: { id } })
   }
 
   @Post('todo-list/:id')
-  async createTodo(@CurrentUser() user: JwtPayload, @Body() createTodoDto: CreateTodoDto, @Param('id') id: string) {
+  async createTodo(@Body() createTodoDto: CreateTodoDto, @Param('id') id: string) {
     const todoList = await this.todoListsService.get({ id })
     if (!todoList) {
       throw new NotFoundException('Todo list not found')
@@ -38,12 +38,12 @@ export class TodosController {
   }
 
   @Put(':id')
-  async updateTodo(@CurrentUser() user: JwtPayload, @Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto) {
+  async updateTodo(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto) {
     return this.todosService.updateTodo({ where: { id }, data: updateTodoDto })
   }
 
   @Delete(':id')
-  async deleteTodo(@CurrentUser() user: JwtPayload, @Param('id') id: string) {
+  async deleteTodo(@Param('id') id: string) {
     return this.todosService.deleteTodo({ id })
   }
 }
