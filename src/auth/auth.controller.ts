@@ -3,6 +3,8 @@ import { AuthService } from './auth.service'
 import { Public } from './public.decorator'
 import { UsersService } from 'src/users/users.service'
 import { RegisterDto } from './dto/register.dto'
+import { CurrentUser } from './current-user.decorator'
+import { JwtPayload } from './jwt-payload.interface'
 
 @Controller('auth')
 export class AuthController {
@@ -41,10 +43,7 @@ export class AuthController {
   }
 
   @Get('me')
-  async me(@Req() req: Request) {
-    const authHeader = req.headers['authorization']
-    if (!authHeader) throw new UnauthorizedException('No token provided')
-    const token = authHeader.split(' ')[1]
-    return this.authService.me(token)
+  async me(@CurrentUser() user: JwtPayload) {
+    return this.authService.me(user.sub)
   }
 }

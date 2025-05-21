@@ -14,10 +14,34 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
+  id        String     @id @default(uuid())
   name      String
-  email     String   @unique
+  email     String     @unique
   password  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  todoLists todoList[]
+}
+
+model Todo {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  completed   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  todoListId  String?
+  todoList    todoList? @relation(fields: [todoListId], references: [id])
+}
+
+model todoList {
+  id        String   @id @default(uuid())
+  title     String
+  todos     Todo[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  
+  @@unique([title, userId])
 }
